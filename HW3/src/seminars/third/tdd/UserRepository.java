@@ -9,7 +9,9 @@ public class UserRepository {
     List<User> data = new ArrayList<>();
 
     public void addUser(User user) {
-       //..
+       if(user.isAuthenticate) {
+           data.add(user);
+       }
     }
 
     public boolean findByName(String username) {
@@ -21,4 +23,16 @@ public class UserRepository {
         return false;
     }
 
+    public void logOut() {
+        ArrayList<User> userList = new ArrayList<>();
+        for(User user : data) {
+            if(!user.isAdmin) {
+                user.isAuthenticate = false;
+            }
+            else {
+                userList.add(user);
+            }
+        }
+        this.data = userList;
+    }
 }
